@@ -114,7 +114,7 @@ jobs:
     - name: ccache epilog
       run: 'ccache -s # Print current cache stats'
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         path: ${{github.workspace}}/build/app/bergamot
 

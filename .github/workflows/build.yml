@@ -44,7 +44,7 @@ jobs:
             echo "::set-output name=timestamp::$(date '+%Y-%m-%dT%H.%M.%S')"
 
         - name: Cache-op for build-cache through ccache
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           with:
             path: ${{ env.ccache_dir }}
             key: ccache-cibuildwheel-${{ matrix.os }}-${{ steps.ccache_vars.outputs.hash }}-${{ github.ref }}-${{ steps.ccache_vars.outputs.timestamp }}
@@ -189,7 +189,7 @@ jobs:
               git clone --depth 1 https://github.com/emscripten-core/emsdk.git
 
         - name: Cache-op for build-cache through ccache
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           with:
             path: |
                 ${{ env.ccache_dir }}
@@ -426,7 +426,7 @@ jobs:
             python-version: 3.7
 
         - name: Set up dependency cache
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           with:
             path: ~/.cache/pip
             key: ${{ runner.os }}-pip-${{ hashFiles('doc/requirements.txt') }}

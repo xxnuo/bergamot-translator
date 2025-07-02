@@ -55,7 +55,7 @@ jobs:
         message("::set-output name=hash::${{ env.ccache_compilercheck }}")
 
     - name: Cache-op for build-cache through ccache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: ${{ env.CCACHE_DIR }}
         key: ccache-${{ matrix.identifier }}-${{ steps.ccache_vars.outputs.hash }}-${{ github.ref }}-${{ steps.ccache_vars.outputs.timestamp }}

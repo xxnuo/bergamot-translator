@@ -16,9 +16,7 @@ fi
 
 ### 安装依赖
 if ! command -v cmake &> /dev/null; then
-brew install cmake ccache git \
-    gperftools pcre2 \
-    doxygen graphviz
+brew install cmake ccache git gperftools pcre2
 fi
 
 rm -rf build
@@ -32,7 +30,6 @@ cmake .. \
     -DCOMPILE_CPU=ON \
     -DCOMPILE_EXAMPLES=ON \
     -DUSE_CCACHE=ON \
-    -DUSE_DOXYGEN=ON \
     -DUSE_APPLE_ACCELERATE=ON \
     -DUSE_MKL=OFF \
     -DUSE_SIMD_UTILS=ON \

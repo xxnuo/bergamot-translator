@@ -177,6 +177,7 @@ if(COMPILE_WASM)
   add_subdirectory(wasm)
 else()
   add_subdirectory(app)
+  add_subdirectory(mtrancore)
 endif(COMPILE_WASM)
 
 option(COMPILE_PYTHON "Compile python bindings. Intended to be activated with setup.py" OFF)

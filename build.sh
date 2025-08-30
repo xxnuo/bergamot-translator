@@ -1,22 +1,36 @@
 # 构建脚本
 
-## macOS
-if [ "$(uname)" == "Darwin" ]; then
+ARCH=$(uname -m)
+OS=$(uname -s)
 
-### 构建环境
-if ! command -v xcodebuild &> /dev/null; then
-    echo "xcodebuild could not be found"
-    exit 1
-fi
+USE_APPLE_ACCELERATE=OFF
+USE_MKL=OFF
+USE_CPUS=1
 
-if ! command -v brew &> /dev/null; then
-    echo "brew could not be found"
-    exit 1
-fi
+if [ $OS == "Darwin" ]; then
+    if ! command -v xcodebuild &> /dev/null; then
+        echo "xcodebuild could not be found"
+        exit 1
+    fi
 
-### 安装依赖
-if ! command -v cmake &> /dev/null; then
-brew install cmake ccache git gperftools pcre2
+    if ! command -v brew &> /dev/null; then
+        echo "brew could not be found"
+        exit 1
+    fi
+
+    ### 安装依赖
+    if ! command -v cmake &> /dev/null; then
+        brew install cmake ccache git gperftools pcre2 openblas
+    fi
+
+    if [ $ARCH == "arm64" ]; then
+        USE_APPLE_ACCELERATE=ON
+    fi
+
+    USE_CPUS=$(sysctl -n hw.ncpu)
+elif [ $OS == "Linux" ]; then
+    USE_MKL=ON
+    USE_CPUS=$(nproc)
 fi
 
 rm -rf build
@@ -30,11 +44,7 @@ cmake .. \
     -DCOMPILE_CPU=ON \
     -DCOMPILE_EXAMPLES=ON \
     -DUSE_CCACHE=ON \
-    -DUSE_APPLE_ACCELERATE=ON \
-    -DUSE_MKL=OFF \
-    -DUSE_SIMD_UTILS=ON \
+    -DUSE_APPLE_ACCELERATE=$USE_APPLE_ACCELERATE \
+    -DUSE_MKL=$USE_MKL \
 
-### 构建
-make -j$(sysctl -n hw.ncpu)
-
-fi
+make -j$USE_CPUS

@@ -176,7 +176,7 @@ add_subdirectory(src)
 if(COMPILE_WASM)
   add_subdirectory(wasm)
 else()
-  add_subdirectory(app)
+  # add_subdirectory(app)
   add_subdirectory(mtrancore)
 endif(COMPILE_WASM)
 

@@ -27,3 +27,4 @@ wasm/module/browsermt-bergamot-translator-*.tgz
 
 # VSCode
 .vscode
+/.cache

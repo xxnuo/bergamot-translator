@@ -9,6 +9,10 @@ if (POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
 endif()
 
+if (POLICY CMP0069)
+  cmake_policy(SET CMP0069 NEW) # CMake 3.9
+endif()
+
 project(bergamot_translator CXX C)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -177,7 +181,7 @@ if(COMPILE_WASM)
   add_subdirectory(wasm)
 else()
   # add_subdirectory(app)
-  add_subdirectory(mtrancore)
+  # add_subdirectory(mtrancore)
 endif(COMPILE_WASM)
 
 option(COMPILE_PYTHON "Compile python bindings. Intended to be activated with setup.py" OFF)
